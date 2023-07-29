@@ -15,6 +15,7 @@ const App = () => {
   const total = good + neutral + bad;
   const average = good*1 + bad*(-1)
   const goodPercentage = (good/total)*100
+  const goodPercentageDisplay = goodPercentage.toFixed(2) + " %"
 
   const methods = [
     {
@@ -34,10 +35,10 @@ const App = () => {
   return (
     <>
       <Header text={text} />
-      {methods.map(method => {
-        return <Button text={method.text} handler={method.handler} />
+      {methods.map((method, index) => {
+        return <Button key={index} text={method.text} handler={method.handler} />
       })}
-      <Stats good={good} neutral={neutral} bad={bad} total={total} average={average} goodPercentage={goodPercentage}/>
+      <Stats good={good} neutral={neutral} bad={bad} total={total} average={average} goodPercentage={goodPercentageDisplay}/>
     </>
   )
 }
