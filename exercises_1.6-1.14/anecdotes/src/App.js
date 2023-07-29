@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Button from "./Button"
+import Anecdote from './Anecdote'
+import MostVoted from './MostVoted'
 
 const App = () => {
   const anecdotes = [
@@ -21,18 +23,27 @@ const App = () => {
   console.log(votes)
 
   function handleVotes() {
-    const nextVotes = votes.map((vote, index) => {if(index === selected){return vote +1}else{return vote}})
+    const nextVotes = votes.map((vote, index) => { if (index === selected) { return vote + 1 } else { return vote } })
     setVotes(nextVotes)
   }
+
+  let mostVoted = ""
+
+  if (Math.max(...votes) === 0)
+  {mostVoted = "No votes yet"}
+  else { mostVoted = anecdotes[votes.indexOf(Math.max(...votes))]}
 
   return (
     <>
       <div>
-        {anecdotes[selected]}
+        <Anecdote anecdote={anecdotes[selected]} />
       </div>
       <p>{votes[selected]}</p>
       <Button text={"Vote"} handler={handleVotes} />
       <Button text={"Next"} handler={() => { setSelected(Math.floor(Math.random() * 8)) }} />
+      <div>
+        <MostVoted anecdote={mostVoted} />
+      </div>
     </>
   )
 }
